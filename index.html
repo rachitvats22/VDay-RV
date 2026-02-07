@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>For Naina ❤️</title>
+
+<style>
+body{
+margin:0;
+font-family:Poppins,sans-serif;
+background:linear-gradient(135deg,#ff9a9e,#fad0c4);
+overflow:hidden;
+color:white;
+text-align:center;
+}
+
+/* hearts */
+.heart{
+position:absolute;
+width:25px;
+height:25px;
+background:url("https://upload.wikimedia.org/wikipedia/commons/thumb/4/42/Love_Heart_SVG.svg/1024px-Love_Heart_SVG.svg.png");
+background-size:cover;
+animation:float 8s linear infinite;
+}
+
+/* petals */
+.petal{
+position:absolute;
+width:18px;
+height:18px;
+background:#ff4d6d;
+border-radius:50%;
+opacity:.7;
+animation:petal 10s linear infinite;
+}
+@keyframes float{
+0%{transform:translateY(100vh)}
+100%{transform:translateY(-10vh)}
+}
+@keyframes petal{
+0%{transform:translateY(-10vh)}
+100%{transform:translateY(100vh)}
+}
+
+/* card */
+.screen{
+position:absolute;
+top:50%;
+left:50%;
+transform:translate(-50%,-50%);
+background:rgba(0,0,0,0.25);
+padding:40px;
+border-radius:20px;
+backdrop-filter:blur(10px);
+animation:fade .7s ease;
+}
+@keyframes fade{
+from{opacity:0;transform:translate(-50%,-40%)}
+}
+
+/* glow text */
+.glow{
+font-size:40px;
+text-shadow:0 0 20px #fff,0 0 40px #ff4d6d;
+}
+
+/* buttons */
+button{
+padding:12px 28px;
+border:none;
+border-radius:25px;
+margin:10px;
+font-size:18px;
+cursor:pointer;
+}
+
+#no{
+position:absolute;
+background:transparent;
+border:2px solid white;
+color:white;
+}
+
+/* door */
+.door{
+width:150px;
+cursor:pointer;
+margin:20px;
+transition:transform .7s;
+}
+.door.open{transform:rotateY(70deg);}
+
+/* gift */
+.gift{
+width:150px;
+cursor:pointer;
+margin:20px;
+transition:transform .7s;
+}
+.gift.open{transform:scale(1.2);}
+</style>
+</head>
+
+<body>
+
+<audio id="music" loop>
+<source src="https://cdn.pixabay.com/download/audio/2022/03/15/audio_c8c8a73467.mp3">
+</audio>
+
+<div id="main" class="screen">
+<h1>Naina 💖</h1>
+<h2>Will you be my Valentine?</h2>
+<button onclick="yes()">Yes 🥰</button>
+<button id="no">No 🙈</button>
+</div>
+
+<script>
+
+/* floating hearts */
+setInterval(()=>{
+let h=document.createElement("div");
+h.className="heart";
+h.style.left=Math.random()*100+"%";
+document.body.appendChild(h);
+setTimeout(()=>h.remove(),8000);
+},400);
+
+/* falling petals */
+setInterval(()=>{
+let p=document.createElement("div");
+p.className="petal";
+p.style.left=Math.random()*100+"%";
+document.body.appendChild(p);
+setTimeout(()=>p.remove(),10000);
+},500);
+
+/* play music */
+document.body.addEventListener("click",()=>{
+document.getElementById("music").play();
+},{once:true});
+
+/* moving NO */
+const no=document.getElementById("no");
+no.onmouseover=()=>{
+no.style.top=Math.random()*80+"%";
+no.style.left=Math.random()*80+"%";
+alert("Nice try 😜");
+}
+
+/* YES */
+function yes(){
+document.body.innerHTML += `
+<div class="screen">
+<h2 class="glow">You will always be my Valentine 💘</h2>
+<h3>Choose your cafe</h3>
+
+<img class="door" src="https://cdn-icons-png.flaticon.com/512/869/869636.png"
+onclick="openDoor('Rustique Cafe',this)">
+<img class="door" src="https://cdn-icons-png.flaticon.com/512/869/869636.png"
+onclick="openDoor('Bean and Bear Cafe',this)">
+<img class="door" src="https://cdn-icons-png.flaticon.com/512/869/869636.png"
+onclick="openDoor('Fab Cafe by the Lake',this)">
+</div>`;
+}
+
+/* door click */
+function openDoor(name,el){
+el.classList.add("open");
+setTimeout(()=>{
+document.body.innerHTML += `
+<div class="screen">
+<h2 class="glow">${name} selected ☕</h2>
+<p>Preparing gifts...</p>
+</div>`;
+setTimeout(showGifts,3000);
+},600);
+}
+
+/* gifts */
+function showGifts(){
+document.body.innerHTML += `
+<div class="screen">
+<h2>Select your gift 🎁</h2>
+
+<img class="gift" src="https://cdn-icons-png.flaticon.com/512/3468/3468377.png"
+onclick="openGift('Sling Bag / Shoulder Bag',this)">
+
+<img class="gift" src="https://cdn-icons-png.flaticon.com/512/3468/3468377.png"
+onclick="openGift('Limited Edition Sneaker',this)">
+
+<img class="gift" src="https://cdn-icons-png.flaticon.com/512/3468/3468377.png"
+onclick="openGift('Accessories & Fragrance Set',this)">
+</div>`;
+}
+
+/* gift click */
+function openGift(name,el){
+el.classList.add("open");
+setTimeout(()=>{
+document.body.innerHTML += `
+<div class="screen">
+<h2 class="glow">${name} selected 🎁</h2>
+<p>Preparing delivery...</p>
+</div>`;
+setTimeout(()=>{
+document.body.innerHTML += `
+<div class="screen">
+<h1 class="glow">Naina ❤️</h1>
+<h2>Your gift will be delivered soon 🚚</h2>
+</div>`;
+},3000);
+},600);
+}
+
+</script>
+</body>
+</html>
